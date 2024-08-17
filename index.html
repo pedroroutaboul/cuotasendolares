@@ -108,6 +108,18 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .description {
+            background-color: #e7f3fe;
+            color: #0c5460;
+            border: 1px solid #b8daff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .description h3 {
+            margin-top: 0;
+        }
 
         @media (max-width: 600px) {
             .container {
@@ -132,6 +144,10 @@
             }
             .legend {
                 font-size: 14px;
+            }
+            .description {
+                font-size: 14px;
+                padding: 10px;
             }
         }
     </style>
@@ -173,6 +189,11 @@
             </tbody>
         </table>
 
+        <div id="description" class="description">
+            <h3>Información:</h3>
+            <p>Esta web sirve para calcular el valor final de una compra realizada en pesos argentinos. El precio final se calcula tomando en cuenta el dólar blue de cada mes. En caso de que haya cuotas futuras se toma como referencia el último valor del dólar.</p>
+            <p>Los cálculos son estimados dado a que el cierre de la tarjeta puede variar, por eso se asume la fecha de compra como cierre de tarjeta. Esta web utiliza la API de bluelytics.com.ar.</p>
+        </div>
     </div>
 
     <script>
@@ -262,6 +283,8 @@
             document.getElementById("result").textContent = "Calculando...";
             document.getElementById("detailsBody").innerHTML = "";
             document.getElementById("legend").innerHTML = "";
+            document.getElementById("detailsTable").style.display = "table";
+            document.getElementById("description").style.display = "none"; // Hide description after calculation
 
             const purchaseDate = new Date(document.getElementById("date").value);
             const amountPesos = parseFloat(document.getElementById("amount").value);
@@ -312,8 +335,6 @@
 
                 currentDate.setMonth(currentDate.getMonth() + 1);
             }
-
-            document.getElementById("detailsTable").style.display = "table";
 
             const today = new Date();
             installmentDetails.forEach((detail) => {
